@@ -1,0 +1,114 @@
+<div class="groupfull">
+    <div class="d-flex pt-2">
+        <div class="col-5 pl-3">
+            <a id="edit" style="border:none;" [routerLink]="['../']"><i class="fas fa-arrow-circle-left fa-1x"> back</i></a>
+        </div>
+        <div>
+            <h3>Domains</h3>
+        </div>
+    </div>
+    
+    <div class="grouplist mt-2 pb-2 shadow" style="margin:0 6% 0 6%">
+        <div class="d-flex py-2" style="border-bottom: 1px solid rgb(237, 237, 250);background-color:rgb(235, 235, 235)">
+            <div class="col-2" >
+                <div class="newlink" style="width: fit-content;">
+                    <a class=""><i class="fal fa-plus" (click)="addDomain()"> Add</i></a>
+                </div>
+            </div>
+            <div class="col-4 mr-5">
+                <input style="height:27px" type="text" class="form-control bg-light border mx-4" placeholder="Search for..." [(ngModel)]="SearchWord" >
+            </div>
+            <div class="col-2">
+                <select style="height:27px" class="mr-3 dropdown" id="sorttype">
+                    <option value="asc">A-Z</option>
+                    <option value="dec">Z-A</option>
+                  </select>
+            </div>
+            
+        </div>
+        <div class="container mb-3">
+            <div class="d-flex card display-domains-head mt-3 mx-4" style="background-color: rgb(252, 249, 213);">
+                <div class="col" >
+                    <div class="d-flex">
+                        <div class="col-4 py-2" style="border-right:1px solid rgb(212, 214, 80)">
+                            <h4 style="color: rgb(126, 126, 123);">Domain Name</h4>
+                        </div>
+                        <div class="col-4 py-2" style="border-right:1px solid rgb(212, 214, 80)">
+                            <h4 style="color:  rgb(126, 126, 123);">User Count</h4>
+                        </div>
+                                           
+                        <div class="col-4 py-2 mx-5"  style="border-right:1px solid rgb(212, 214, 80)">
+                            <h4 style="color:  rgb(126, 126, 123);">Action</h4>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex card display-domains mt-2 mx-4" style="background-color: rgb(236, 236, 238);" *ngFor="let domain of this.DomainList| filter:SearchWord">
+                <div class="col" >
+                    <div class="d-flex">
+                        <div class="col-4">
+                            <h3 style="color: rgb(163, 163, 37);">{{domain.name}}</h3>
+                        </div>
+                        <div class="col-4" >
+                            <h2 style="color: rgb(24, 144, 184);">{{domain.employeeCount}}</h2>
+                        </div>
+                                           
+                        <div class="col-4 py-2" >
+                            <a class="px-5" [routerLink]="['/viewdomain',domain.domainId]"><i class="far fa-eye" ></i>View</a>&nbsp;&nbsp;
+                            <a class="px-4" style="cursor: pointer;" class="text-danger" (click)="deleteDomain(domain.domainId)"><i class="fad fa-trash-alt"></i>Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+           
+            
+        
+    </div>
+</div>
+
+<div class="modal" [style.display]="showDomain">
+    <div class="modalbody">
+        <span class="close" (click)="close()">&times;</span>
+        <div class="content">
+            <form (ngSubmit)="onAddDomain(f)" #f="ngForm">
+            <div class="py-2">
+                <label>Domain Name</label><span class="required" style="color: red;">*</span>
+                <input class="form-control" type="text" name="name" placeholder="Enter domain name" ngModel required>
+            </div>
+            <!-- <label class="pt-2">Add users</label>
+            <div class=" pb-4" style="display: flex;">
+                
+                <input class="form-control" type="email" [(ngModel)]="useremail" placeholder="Enter email" >
+                <span>
+                    <button class="btn btn-info" (click)="add()" >Add</button>
+                </span>        
+            </div>
+            <div *ngFor="let email of this.displayemail;let i=index">
+        
+                    <p >{{email}} <i class="fad fa-times-circle text-danger" (click)="remove(i)" style="cursor: pointer;"></i></p>
+            </div> -->
+            
+              <div style="align-items:center;">
+                <button type="submit" class="btn btn-success" [disabled]="!f.valid">Save</button>&nbsp;<a class="btn btn-danger" style="cursor:pointer" (click)="close(f)">Cancel</a>
+              </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal1" [style.display]="showDelete">
+    <div class="modalbody1">
+        <span class="close" (click)="close()">&times;</span>
+        <div class="content1">
+            <div class="py-2">
+                Are You sure, you want to delete?
+            </div>
+            <div style="align-items:center;">
+                <button class="btn btn-success mr-3" (click)="confirmDelete()">Yes</button><button class="btn btn-danger" (click)="close()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

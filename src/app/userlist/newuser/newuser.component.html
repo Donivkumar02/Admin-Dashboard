@@ -1,0 +1,207 @@
+<div class="d-flex pt-3"  style="color: rgb(91, 91, 128);">
+    <div class="col-6 pl-3">
+        <a id="edit" style="border:none;" [routerLink]="['/users']"><i class="fas fa-arrow-circle-left fa-1x"> back</i></a>
+    </div>
+    <div>
+        <h4>Add User</h4>
+    </div>
+</div>
+<div class="d-flex mt-4" style="min-height: 550px;">
+    <div class="col-3" style="border-right:solid 1px rgb(194, 191, 191);padding:0px">
+        <div class="mt-4" style="margin-left:53px">
+            <div class="profile-pic-div" >
+                <img [src]="imageUrl" id="photo">
+                <input #file type="file" id="file" (change)="showImage(file.files)">
+                <label  for="file" id="uploadBtn"><i class="fad fa-upload fa-2x"></i></label>                                  
+            </div>
+        </div>
+        <div  style="margin-top: 300px;text-align:center">
+            <div class="p-3 border Personaldetails" [style.color]="details1" [style.background-color]="detailsbg1"><a >Personal details</a></div>
+            <div class="p-3 border Employementdetails" [style.color]="details2" [style.background-color]="detailsbg2"><a >Employement details</a></div>
+        </div>
+    </div>
+    <div class="col-9" [style.display]="personaldetailsPage">
+        <div class="pb-2">
+            <h5>Personal Details</h5>
+        </div>
+        <form (ngSubmit)="onAddUser(fu)" #fu="ngForm">
+            <div class="col">
+                <label>Title</label><br>
+                <select id="title" name="title" ngModel>
+                    <option value="Mr">Mr</option>
+                    <option value="Mrs">Mrs</option>
+                </select>
+            </div>
+           <div class="d-flex pb-4 pt-4">
+              <div class="col">
+                <label>First Name</label><span class="required">*</span>
+                <input class="form-control" type="text" name="firstName" placeholder="Enter your firstname" ngModel required>
+              </div>
+              <div class="col">
+                <label>Middle Name</label>
+                <input class="form-control" type="text" name="middleName" placeholder="Enter your middlename" ngModel>
+              </div>
+              <div class="col">
+                <label>Last Name</label><span class="required">*</span>
+                <input class="form-control" type="text" name="lastName" placeholder="Enter your lastname" ngModel>
+              </div>
+           </div>
+           <div class="d-flex  pb-4">
+               <div class="col-4">
+                <label>Email</label><span class="required">*</span>
+                <input class="form-control" type="text" name="email" placeholder="Enter email address" ngModel required email>
+               </div>
+               <div class="col-4">
+                <label>Phone</label><span class="required">*</span>
+                <input class="form-control" type="text" name="phone" placeholder="phone number" ngModel>
+               </div>
+           </div>
+           <div class="d-flex  pb-4">
+            <div class="col-4">
+                <label>Nationality</label>
+                <input class="form-control" type="text" name="nationality" ngModel>
+            </div>
+            <div class="col-3">
+             <label>DOB</label>
+             <input class="form-control" type="date" name="dob" ngModel>
+            </div>
+            <div class="col-4">
+             <label>Gender</label><br>
+             <div style="height: 25px;" class="d-flex">
+                 
+                    <label style="display:block;" for="male">male</label>&nbsp;
+                    <input id="male" value="male" name="gender" type="radio" ngModel>&nbsp;&nbsp;&nbsp;
+                
+                    <label for="female">female</label>&nbsp;
+                    <input id="female" value="female" name="gender" type="radio" ngModel>
+
+             </div>
+             
+            </div>
+           
+        </div>
+        <div class="d-flex pl-3">
+            <h6>Residential Address</h6>
+        </div>
+        <div class="d-flex pb-2">
+            <div class="col-4">
+                <label>State:</label><span class="required">*</span><br>
+                <select class="form-control" name="state" (change)="selectstate($event.target.value)" ngModel>
+                    <option value="" disabled selected>Select state</option>
+                    <option *ngFor ="let state of stateList">{{state.name}} </option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label>City:</label><span class="required">*</span><br>
+                <select class="form-control" name="city" style="min-width: 100%;" ngModel>
+                    <option *ngFor ="let city of cityList">{{city}} </option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label>Pin:</label><span class="required">*</span><br>
+                <input  class="form-control" id="pinCode" name="pinCode" type="text" ngModel>
+            </div>
+        </div>
+        <div class="d-flex pb-2">
+            <div class="col-7">
+                <label for="line1">Door no/flat no</label>&nbsp;
+                <input  class="form-control" id="line1" name="address1" type="text" ngModel>
+            </div>
+            
+        </div>
+        <div class="d-flex">
+            <div class="col-7">
+                <label for="line2">Area/locality</label>&nbsp;
+                <input  class="form-control" id="line2" name="address2" type="text" ngModel>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end p-2 pb-5">
+            <button type="submit" class="btn btn-primary" (click)="gotoemployee()">Continue</button>
+        </div>
+    </form>
+    </div>
+
+    <!-- employee details -->
+    <div class="col-9 empdetails" [style.display]="employeedetailsPage">
+    <form (ngSubmit)="onAddEmployee(f)" #f="ngForm">
+        <div class="pb-2">
+            <h5>Employee Details</h5>
+        </div>
+        <div class="d-flex pb-4 pt-4">
+            <div class="col">
+           
+                <label>Designation</label><span class="required">*</span><br>
+                <select id="designation" name="groupId" ngModel>
+                    <option *ngFor ="let group of this.GroupList" value={{group.groupId}}>{{group.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex  pb-4">
+            <div class="col-3">
+                <label>Experience</label>
+                <input class="form-control" type="number" name="experience" placeholder="Enter experience" ngModel>
+            </div>
+        </div>
+        <div class="d-flex  pb-4">
+            <div class="col-4">
+                <label>Office Location</label><br>
+                <select id="baseLocation" name="baseLocation" ngModel>
+                    <option value="Bengaluru">Bengaluru</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Pune">Pune</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex pb-4">
+            <div class="col-4">
+                <label>Bussiness Unit</label><br>
+                <select id="BU" name="domainId" ngModel>
+                    <option *ngFor ="let domain of this.DomainList" value={{domain.domainId}}>{{domain.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex pb-5 mb-5">
+            <div class="col-4">
+                <label>Employee Status</label><br>
+                <select id="employeeStatus" name="employeeStatus" ngModel="Active">
+                    <option value="Active">Active</option>
+                    <option value="DeActive">Deactive</option>
+                </select>
+            </div>
+        </div>
+        
+
+        <div class="d-flex justify-content-end pb-5">
+           <div class="mr-2">
+                <a class="btn btn-secondary" (click)="gotopersonal()" style="cursor:pointer;">back</a>
+           </div>
+            <div class="mr-2">
+                <button type="submit" class="btn btn-success" (click)="saveDetails()">Save</button>
+            </div>
+       
+        </div>
+    </form>
+    </div>
+   
+</div>
+<div id="myModal" class="modal" [style.display]="savealert">
+
+   
+    <div class="modal-content p-2" style="width: 250px;align-items:center;background-color:lightblue">
+      
+      <p>User details will be saved</p>
+      <p>Are you sure, you want to save changes?</p>
+      <div class="d-flex">
+        <button class="btn btn-primary mr-2" (click)="alertNo()">No</button>
+        <button class="btn btn-danger" (click)="alertConfirm()">Yes</button>
+      </div>
+      
+    </div>
+  
+  </div>

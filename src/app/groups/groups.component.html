@@ -1,0 +1,94 @@
+<div class="groupfull">
+    <div class="d-flex pt-2">
+        <div class="col-5 pl-3">
+            <a id="edit" style="border:none;" [routerLink]="['../']"><i class="fas fa-arrow-circle-left fa-1x"> back</i></a>
+        </div>
+        <div>
+            <h3>Groups</h3>
+        </div>
+    </div>
+    
+    <div class="grouplist mx-5 mt-2 shadow" >
+        <div class="d-flex py-2" style="border-bottom: 1px solid rgb(237, 237, 250);background-color:rgb(235, 235, 235)">
+            <div class="col-2" >
+                <div class="newlink" style="width: fit-content;">
+                    <a class=""><i class="fal fa-plus" (click)="appGroup()"> New Group</i></a>
+                </div>
+            </div>
+            <div class="col-4 mr-5">
+                <input style="height:27px" type="text" class="form-control bg-light border mx-4" placeholder="Search for..." [(ngModel)]="SearchWord">
+            </div>
+            <div class="col-2">
+                <select style="height:27px" class="mr-3 dropdown" id="sorttype">
+                    <option value="asc">A-Z</option>
+                    <option value="dec">Z-A</option>
+                  </select>
+            </div>
+            
+        </div>
+        <div class="container" >
+            <div class="row display-groups" style="display:grid; grid-template-columns: auto auto auto;">
+                <div class="col" *ngFor="let group of this.GroupList| filter:SearchWord">
+                    <div class="card m-3" style="background-color: rgb(250, 249, 249);">
+                        <div class="card-body">
+                            <div class="head">
+                                <h4 style="color: rgb(87, 87, 6);">{{group.name}}</h4>
+                            </div>
+                            <div>
+                                <h1 style="color: rgb(8, 91, 119);">{{group.employeeCount}}</h1>
+                            </div>
+                        </div>
+                        <div class="d-flex card-footer py-2" style="background-color: rgb(206, 216, 250);">
+                            <a class="px-3" [routerLink]="['/viewgroup',group.groupId]"><i class="far fa-eye" ></i>View</a>&nbsp;&nbsp;
+                            <a class="px-3" style="cursor: pointer;" class="text-danger" (click)="deleteGroup(group.groupId)"><i class="fad fa-trash-alt"></i>Delete</a>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+       
+    </div>
+</div>
+
+<div class="modal" [style.display]="showgroup">
+    <div class="modalbody">
+        <span class="close" (click)="close()">&times;</span>
+        <div class="content">
+            <form (ngSubmit)="onAddGroup(f)" #f="ngForm">
+            <div class="py-2">
+                <label>Group Name</label><span class="required" style="color: red;">*</span>
+                <input class="form-control" type="text"  name="name" ngModel placeholder="Enter group name" required>
+            </div>
+            <div class="py-2">
+                <label>Minimum Experience</label><span class="required" style="color: red;">*</span>
+                <input class="form-control" type="number" name="minExperience" ngModel placeholder="Enter minexp" required> 
+            </div>
+            <div class="py-2">
+                <label>Maximum Experience</label><span class="required" style="color: red;">*</span>
+                <input class="form-control" type="number" name="maxExperience" ngModel placeholder="Enter maxexp" required>
+            </div>
+
+              <div style="align-items:center;">
+                <button type="submit" class="btn btn-success" [disabled]="!f.valid">Save</button>&nbsp;<a class="btn btn-danger" style="cursor:pointer" (click)="close()">Cancel</a>
+              </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal1" [style.display]="showdelete">
+    <div class="modalbody1">
+        <span class="close" (click)="close()">&times;</span>
+        <div class="content1">
+            <div class="py-2">
+                Are You sure, you want to delete?
+            </div>
+            <div style="align-items:center;">
+                <button class="btn btn-success mr-3" (click)="confirmDelete()">Yes</button><button class="btn btn-danger" (click)="close()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

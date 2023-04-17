@@ -1,0 +1,17 @@
+
+<div class="container-fluid row user-div">
+
+    <button style="border-bottom: 0;" class="border-0 px-xm-1 px-sm-4 ml-2 py-2 mr-1 user-home user-menu" [style.color]="btncol1" [style.background-color]="bgcol1"  (click)="btn1()">
+        <p class="m-0">Profile</p>
+    </button >
+   
+    <button class="border-0 px-xm-1 px-sm-4 py-2 mr-1 user-menu" [style.color]="btncol2" [style.background-color]="bgcol2" (click)="btn2()">
+        Change Password
+    </button>
+   
+    <button  class="border-0 px-xm-1 px-sm-4 py-2 mr-1 user-menu" [style.color]="btncol3" [style.background-color]="bgcol3" (click)="btn3()" >
+        <i class="fas fa-home-lg-alt"></i>
+    </button>
+   
+  </div>
+  <router-outlet></router-outlet>

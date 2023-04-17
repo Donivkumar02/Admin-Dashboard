@@ -1,0 +1,119 @@
+<div class="pt-4"  style="color: rgb(91, 91, 128);text-align:center">
+    <h2>DASHBOARD</h2>
+</div>
+
+<div class="d-flex">
+    <div class="col-4 p-5">
+        <div class="card border-left-primary shadow">
+            <div class="card-body px-4" id="group-count">
+                <div class="row no-gutters align-items-center mt-2">
+                    <div class="col-8 pl-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Groups</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><h1>{{groupcount}}</h1></div>
+                    </div>
+                    <div class="col-4 pl-4">
+                        <i class="fas fa-atlas fa-3x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-5">
+        <div class="card border-left-primary shadow">
+            <div class="card-body px-4" id="user-count">
+                <div class="row no-gutters align-items-center mt-2">
+                    <div class="col-8 pl-2">
+                        <div class="text-xs font-weight-bold text-uppercase mb-1">
+                            Total Users</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><h1>{{usercount}}</h1></div>
+                    </div>
+                    <div class="col-4 pl-4">
+                        <i class="fal fa-users fa-3x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-5">
+        <div class="card border-left-primary shadow">
+            <div class="card-body px-4" id="helpdesk-count">
+                <div class="row no-gutters align-items-center mt-2">
+                    <div class="col-8 pl-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Domains</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><h1>{{domaincount}}</h1></div>
+                    </div>
+                    <div class="col-4 pl-4">
+                        <i class="fas fa-calendar fa-3x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex mb-5">
+  <div style="display: block" class="col-4">
+    <canvas baseChart
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            [chartType]="pieChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"
+             [colors]="pieChartColors" height="250"></canvas>
+  </div>
+  <div style="display: block" class="col-4">
+    <canvas baseChart
+            [data]="pieChartData2"
+            [labels]="pieChartLabels2"
+            [chartType]="pieChartType2"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"
+            [colors]="pieChartColors2" height="250"></canvas>
+  </div>
+  <div style="display: block;" class="col-4">
+   <ul style="list-style-type: none;background-color:lavender;padding:0 10px 0 10px" class="list-group">
+       <div class="py-2">
+            <span class="px-2"><strong>Users</strong></span><a href="#" class="justify-content-end" [routerLink]="['/new']"><i class="fal fa-plus pl-2"></i></a>
+       </div>
+       <a href="#"><li class="py-2 list-group-item list-group-item-action" *ngFor="let user of this.UsersList| slice:0:3;">
+           <div class="d-flex">
+                <div class="col-4">
+                    <img src="https://localhost:44342/Photos/{{user.photoFileName}}" height="70" width="70" alt="image" style="border-radius: 5%;">
+                </div>
+                <div class="col-8 pt-2">
+                    <h5>{{user.firstName}}</h5>
+                    <span></span>
+                </div> 
+           </div>           
+       </li>
+    </a>
+    <!-- <a href="#"> <li class="py-2 list-group-item list-group-item-action">
+        <div class="d-flex">
+            <div class="col-4">
+                <img src="../../assets/images/floki.jpg" height="70" width="70" alt="image" style="border-radius: 5%;">
+            </div>
+            <div class="col-8 pt-2">
+                <h5>Floki</h5>
+                <span>Boat Builder</span>
+            </div> 
+       </div>  
+        </li>
+    </a>
+        <a href="#"> <li class="py-2 list-group-item list-group-item-action">
+            <div class="d-flex">
+                <div class="col-4">
+                    <img src="../../assets/images/rollo.jpg" height="70" width="70" alt="image" style="border-radius: 5%;">
+                </div>
+                <div class="col-8 pt-2">
+                    <h5>Rollo Lothbrok</h5>
+                    <span>Duke of Normandy</span>
+                </div> 
+           </div>  
+        </li>
+    </a> -->
+        <div class="d-flex justify-content-center py-2"><a [routerLink]="['/users']"><i class="fad fa-eye"></i><span class="pl-2">View all</span></a></div>
+   </ul>
+   
+  </div>
+</div>

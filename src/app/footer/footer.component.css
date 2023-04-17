@@ -1,0 +1,17 @@
+ul#menu li {
+    padding:0 15px 0 15px;
+    display:inline;
+  }
+
+ul{
+    margin:10px 0 10px 0;
+    height: 40px;
+}
+.iconslist{
+    
+    margin-left:20%
+}
+
+.footerimg{
+    margin:10px 0 10px 0;
+}

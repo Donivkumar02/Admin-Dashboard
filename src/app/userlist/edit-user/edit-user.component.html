@@ -1,0 +1,158 @@
+<div class="pl-4 pt-2">
+    <a id="edit" style="border:none;" [routerLink]="['/users']"><i class="fas fa-arrow-circle-left "> back</i></a>
+</div>
+<div style="text-align:center;color:#5b9c35">
+    <h2>Edit User</h2>
+</div>
+<div class="shadow mb-4 edit-pfl-full pt-5" >
+    <div class="d-flex shadow editprofile-top" >
+        <div class="col-4">
+            <div class="profile-pic-div" >
+                <img id="photo" [src]="imageUrl">
+                <input #file type="file" id="file" (change)="showImage(file.files)">
+                <label  for="file" id="uploadBtn"><i class="fad fa-upload fa-2x"></i></label>                                  
+            </div>
+        </div>
+        <div class="col-4">
+            <h4 style="margin-top: 80px;">{{this.User.firstName}} {{this.User.middleName}} {{this.User.lastName}}</h4>
+            <h6>{{this.UserEmp.groupName}}</h6>
+            <h6><i class="fad fa-map-marker-alt"></i>{{this.User.city}}</h6>
+        </div>
+        <div class="col-4">
+           <button class="btn btn-secondary mt-5 mr-2" >{{this.UserEmp.employeeStatus==='Active'?'DeActivate':'Activate'}}</button>
+           <button class="btn btn-secondary mt-5 mr-2" >{{this.UserEmp.employeeStatus==='Lock'?'UnLock Account':'Lock Account'}}</button>
+        </div>
+    </div>
+    <form (ngSubmit)="onUpdateUser(f)" #f="ngForm">
+    <div class="mx-5 mt-3" style="border-bottom:1px solid #c4c0c0">
+        <div class="pb-2">
+            <h5>Personal Details</h5>
+        </div>
+        
+        <div class="d-flex pb-4 pt-4">
+            <div class="col">
+              <label>First Name</label><span class="required">*</span>
+              <input class="form-control" type="text" name="firstName" placeholder="Enter your firstname" ngModel={{this.User.firstName}}>
+            </div>
+            <div class="col">
+              <label>Middle Name</label>
+              <input class="form-control" type="text" name="middleName" placeholder="Enter your middlename" ngModel={{this.User.middleName}}>
+            </div>
+            <div class="col">
+              <label>Last Name</label><span class="required">*</span>
+              <input class="form-control" type="text" name="lastName" placeholder="Enter your lastname" ngModel={{this.User.lastName}}>
+            </div>
+        </div>
+        <div class="d-flex  pb-4">
+            <div class="col-4">
+              <label>Phone</label><span class="required">*</span>
+              <input class="form-control" type="text" name="phone" placeholder="phone number" ngModel={{this.User.phone}}>
+            </div>
+        </div>
+        <div class="d-flex  pb-4">
+            <div class="col-4">
+              <label>Nationality</label>
+              <input class="form-control" type="text" name="nationality" ngModel={{this.User.nationality}} >
+            </div>
+        </div>
+        <div class="d-flex pl-3">
+            <h6>Residential Address</h6>
+        </div>
+        <div class="d-flex pb-2">
+            <div class="col-4">
+                <label>State:</label><span class="required">*</span><br>
+                <select class="form-control" (change)="selectstate($event.target.value)" name="state" ngModel={{this.User.state}}>
+                    <option value={{this.User.state}} selected>{{this.User.state}} </option>
+                    <option *ngFor ="let state of stateList">{{state.name}}</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label>City:</label><span class="required">*</span><br>
+                <select class="form-control" style="min-width: 100%;" name="city" ngModel={{this.User.city}}>
+                    <option value={{this.User.city}} disabled selected>{{this.User.city}}</option>
+                    <option *ngFor ="let city of cityList">{{city}} </option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex pb-2">
+            <div class="col-7">
+                <label for="line1">Door no/flat no</label>&nbsp;
+                <input  class="form-control" id="line1" name="address1" type="text" ngModel={{this.User.address1}}>
+            </div>
+            
+        </div>
+        <div class="d-flex pb-3">
+            <div class="col-7">
+                <label for="line2">Area/locality</label>&nbsp;
+                <input  class="form-control" id="line2" name="address2" type="text" ngModel={{this.User.address2}}>
+            </div>
+        </div>
+    </div>
+
+  <!-- employee details -->
+    <div class="mx-5 mt-3">
+        <div class="pb-2">
+            <h5>Employee Details</h5>
+        </div>
+        <div class="d-flex pb-4 pt-4">
+            <div class="col">
+                <label>Designation</label><span class="required">*</span><br>
+                <select id="designation" name="groupId" ngModel={{this.User.employeeDetail.groupId}}>
+                    <option value="" disabled selected>{{this.UserEmp.groupName}}</option>
+                    <option *ngFor ="let group of this.GroupList" value={{group.groupId}}>{{group.name}}</option>
+                </select>
+            </div>
+        </div>
+            <div class="d-flex  pb-4">
+                <div class="col-3">
+                    <label>Experience</label>
+                    <input class="form-control" type="number" name="experience" placeholder="Enter experience" ngModel={{this.UserEmp.experience}}>
+                </div>
+            </div>
+            <div class="d-flex  pb-4">
+                <div class="col-4">
+                    <label>Office Location</label><br>
+                    <select id="designation" name="baseLocation" ngModel={{this.UserEmp.baseLocation}}>
+                        <option value="Bengaluru">Bengaluru</option>
+                        <option value="Chennai">Chennai</option>
+                        <option value="Hyderabad">Hyderabad</option>
+                        <option value="Kolkata">Kolkata</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Pune">Pune</option>
+                        <option value="USA">USA</option>
+                        <option value="UK">UK</option>
+                    </select>
+                </div>
+            </div>
+        <div class="d-flex pb-4">
+            <div class="col-4">
+                <label>Bussiness Unit</label><br>
+                <select id="BU"  name="domainId" ngModel={{this.User.employeeDetail.domainId}}>
+                    <option value="" disabled selected>{{this.UserEmp.domainName}}</option>
+                    <option  *ngFor ="let domain of this.DomainList" value={{domain.domainId}}>{{domain.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end pb-5 pr-5">
+            <button type="submit" class="btn btn-primary" (click)="gotoemployee()">Save Changes</button>
+        </div>
+    </div>
+</form>
+</div>
+
+<div id="myModal" class="modal" [style.display]="savealert">
+
+   
+    <div class="modal-content p-2" style="width: 250px;align-items:center;background-color:lightblue">
+      
+      <p>User details will be saved</p>
+      <p>Are you sure, you want to save changes?</p>
+      <div class="d-flex">
+        <button class="btn btn-primary mr-2" (click)="alertNo()">No</button>
+        <button class="btn btn-danger" (click)="alertConfirm()">Yes</button>
+      </div>
+      
+    </div>
+  
+  </div>

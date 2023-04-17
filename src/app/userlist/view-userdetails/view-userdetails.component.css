@@ -1,0 +1,12 @@
+
+.viewprofile-top{
+    
+    border-bottom: 1px solid rgb(204, 203, 203);
+    background-color:#bbd7fa;
+}
+
+.viewprofile-img{
+    width: inherit;
+    height:300px;
+    border-radius:50%;
+}

@@ -1,0 +1,282 @@
+<div class="col-5">
+  <a id="edit" style="border:none;" [routerLink]="['../']"><i class="fas fa-arrow-circle-left fa-1x"> back</i></a>
+</div>
+<div class="container">
+  <div  style="color: rgb(91, 91, 128);text-align:center">
+    <h3 style="display: inline;">List of Users</h3>
+</div>
+<div class="adduser">
+  <a routerLinkActive="active" routerLink="/new"><h3 style="display: inline;">Add User</h3><i class="fal fa-user-plus fa-2x"></i></a>
+</div>
+
+    <div class="col-lg-12 mt-3 mt-lg-0">
+        <div class="row">
+          <div class="col-md-12">
+            <form action="">
+            <div class="filterform d-flex">
+             <div class="col-6">
+              <input style="display:inline" type="text" class="form-control bg-light border mx-4" placeholder="Search for...">
+              <button type="submit">submit</button>
+             </div>
+
+                <div class="col-6 d-flex justify-content-end" >
+                  <select class="mr-3 dropdown" id="sorttype">
+                    <option value="asc">A-Z</option>
+                    <option value="dec">Z-A</option>
+                  </select>
+                  <select class="mr-3 dropdown" id="listsize">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                  </select>
+                  <select class="mr-3 dropdown" id="groupby">
+                    <option value="male">male</option>
+                    <option value="female">female</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+            <div class="user-dashboard-info-box table-responsive mb-3 bg-white p-4  ">
+              
+              <mat-form-field>  
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">  
+              </mat-form-field>  
+                
+               
+                <table mat-table [dataSource]="dataSource" matSort class="table manage-candidates-top">  
+                
+                  <ng-container matColumnDef="title">  
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> <h4>Title </h4></th>  
+                    <td mat-cell *matCellDef="let user"> {{user.title}} </td>  
+                  </ng-container>  
+                
+                  <ng-container matColumnDef="firstName">  
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header><h4>Name</h4> </th>  
+                    <td mat-cell *matCellDef="let user">
+                      <img class="img-fluid" src="https://localhost:44342/Photos/{{user.photoFileName}}" alt="">
+                       {{user.firstName}} {{user.middleName}} {{user.lastName}} </td>  
+                  </ng-container>  
+                
+                      <ng-container matColumnDef="email">  
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header><h4>Email</h4> </th>  
+                        <td mat-cell *matCellDef="let user"> {{user.email}} </td>  
+                      </ng-container>  
+                
+                      <ng-container matColumnDef="phone">  
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header><h4>Phone</h4>  </th>  
+                        <td mat-cell *matCellDef="let user"> {{user.phone}} </td>  
+                      </ng-container>  
+
+                      <ng-container matColumnDef="nationality">  
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header><h4>Action</h4>  </th>  
+                        <td mat-cell *matCellDef="let user"> 
+                        <ul class="list-unstyled mb-0 d-flex ">
+                          <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" [routerLink]="['/view',user.userId]"><i class="far fa-eye"></i></a></li>
+                          <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit" [routerLink]="['/edit',user.userId]"><i class="fas fa-pencil-alt"></i></a></li>
+                          <li><a style="cursor: pointer;" class="text-danger" (click)="deleteUser(user.userId)"><i class="far fa-trash-alt"></i></a></li>
+                        </ul> 
+                      </td>  
+                      </ng-container>  
+                
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>  
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>  
+                </table>  
+                
+                <mat-paginator [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>  
+
+                <div class="modal1" [style.display]="showdelete">
+                  <div class="modalbody1">
+                      <span class="close" (click)="close()">&times;</span>
+                      <div class="content1">
+                          <div class="py-2">
+                              Are You sure, you want to delete?
+                          </div>
+                          <div style="align-items:center;">
+                              <button class="btn btn-success mr-3" (click)="confirmDelete()">Yes</button><button class="btn btn-danger" (click)="close()">Cancel</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+              <!-- <table class="table manage-candidates-top ">
+                <thead>
+                  <tr>
+                    <th>Candidate Name</th>
+                    <th class="text-center">Status</th>
+                    <th class="action text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="candidates-list">
+                    <td class="title">
+                      <div class="thumb">
+                        <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+                      </div>
+                      <div class="candidate-list-details">
+                        <div class="candidate-list-info">
+                          <div class="candidate-list-title">
+                            <h5 class="mb-0"><a href="#">Brooke Kelly</a></h5>
+                          </div>
+                          <div class="candidate-list-option">
+                            <ul class="list-unstyled">
+                              <li><i class="fas fa-filter pr-1"></i>Information Technology</li>
+                              <li><i class="fas fa-map-marker-alt pr-1"></i>Rolling Meadows, IL 60008</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="candidate-list-favourite-time text-center">
+                      <a class="candidate-list-favourite order-2 text-danger" href="#"><i class="fas fa-heart"></i></a>
+                      <span class="candidate-list-time order-1">Shortlisted</span>
+                    </td>
+                    <td>
+                      <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                        <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" routerLink="/view"><i class="far fa-eye"></i></a></li>
+                        <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit" routerLink="/edit"><i class="fas fa-pencil-alt"></i></a></li>
+                        <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a></li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr class="candidates-list">
+                    <td class="title">
+                      <div class="thumb">
+                        <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                      </div>
+                      <div class="candidate-list-details">
+                        <div class="candidate-list-info">
+                          <div class="candidate-list-title">
+                            <h5 class="mb-0"><a href="#">Ronald Bradley</a></h5>
+                          </div>
+                          <div class="candidate-list-option">
+                            <ul class="list-unstyled">
+                              <li><i class="fas fa-filter pr-1"></i>Human Resources</li>
+                              <li><i class="fas fa-map-marker-alt pr-1"></i>Monroe Township, NJ 08831</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="candidate-list-favourite-time text-center">
+                      <a class="candidate-list-favourite order-2 text-danger" href="#"><i class="fas fa-heart"></i></a>
+                      <span class="candidate-list-time order-1">Shortlisted</span>
+                    </td>
+                    <td>
+                      <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                        <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view"  routerLink="/view"><i class="far fa-eye" ></i></a></li>
+                        <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a></li>
+                        <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a></li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr class="candidates-list">
+                    <td class="title">
+                      <div class="thumb">
+                        <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="">
+                      </div>
+                      <div class="candidate-list-details">
+                        <div class="candidate-list-info">
+                          <div class="candidate-list-title">
+                            <h5 class="mb-0"><a href="#">Rafael Briggs</a></h5>
+                          </div>
+                          <div class="candidate-list-option">
+                            <ul class="list-unstyled">
+                              <li><i class="fas fa-filter pr-1"></i>Recruitment Consultancy</li>
+                              <li><i class="fas fa-map-marker-alt pr-1"></i>Haines City, FL 33844</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="candidate-list-favourite-time text-center">
+                      <a class="candidate-list-favourite order-2 text-danger" href="#"><i class="fas fa-heart"></i></a>
+                      <span class="candidate-list-time order-1">Shortlisted</span>
+                    </td>
+                    <td>
+                      <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                        <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view"><i class="far fa-eye"></i></a></li>
+                        <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a></li>
+                        <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a></li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr class="candidates-list">
+                    <td class="title">
+                      <div class="thumb">
+                        <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                      </div>
+                      <div class="candidate-list-details">
+                        <div class="candidate-list-info">
+                          <div class="candidate-list-title">
+                            <h5 class="mb-0"><a href="#">Vickie Meyer</a></h5>
+                          </div>
+                          <div class="candidate-list-option">
+                            <ul class="list-unstyled">
+                              <li><i class="fas fa-filter pr-1"></i>Human Resources</li>
+                              <li><i class="fas fa-map-marker-alt pr-1"></i>Minneapolis, MN 55406</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="candidate-list-favourite-time text-center">
+                      <a class="candidate-list-favourite order-2 text-danger" href="#"><i class="fas fa-heart"></i></a>
+                      <span class="candidate-list-time order-1">Shortlisted</span>
+                    </td>
+                    <td>
+                      <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                        <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view"><i class="far fa-eye"></i></a></li>
+                        <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a></li>
+                        <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a></li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr class="candidates-list">
+                    <td class="title">
+                      <div class="thumb">
+                        <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="">
+                      </div>
+                      <div class="candidate-list-details">
+                        <div class="candidate-list-info">
+                          <div class="candidate-list-title">
+                            <h5 class="mb-0"><a href="#">Nichole Haynes</a></h5>
+                          </div>
+                          <div class="candidate-list-option">
+                            <ul class="list-unstyled">
+                              <li><i class="fas fa-filter pr-1"></i>Information Technology</li>
+                              <li><i class="fas fa-map-marker-alt pr-1"></i>Botchergate, Carlisle</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="candidate-list-favourite-time text-center">
+                      <a class="candidate-list-favourite order-2 text-danger" href="#"><i class="fas fa-heart"></i></a>
+                      <span class="candidate-list-time order-1">Shortlisted</span>
+                    </td>
+                    <td>
+                      <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                        <li><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view"><i class="far fa-eye"></i></a></li>
+                        <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a></li>
+                        <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a></li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table> -->
+              <!-- <div class="text-center mt-3 mt-sm-3">
+                <ul class="pagination justify-content-center mb-0">
+                  <li class="page-item disabled"> <span class="page-link">Prev</span> </li>
+                  <li class="page-item active" aria-current="page"><span class="page-link">1 </span> <span class="sr-only">(current)</span></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">...</a></li>
+                  <li class="page-item"><a class="page-link" href="#">25</a></li>
+                  <li class="page-item"> <a class="page-link" href="#">Next</a> </li>
+                </ul>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>

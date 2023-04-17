@@ -1,0 +1,110 @@
+<div class="pl-4 pt-2">
+    <a id="edit" style="border:none;" [routerLink]="['/users']"><i class="fas fa-arrow-circle-left "> back</i></a>
+</div>
+<div class="shadow mb-4  pt-5" style="margin:0 8% 0 8%; border-radius:5%; background-color:#e3edfa">
+    <div class="d-flex shadow viewprofile-top">
+        <div class="col-4">
+            <img class="p-4 viewprofile-img" src="https://localhost:44342/Photos/{{User.photoFileName}}">
+        </div>
+        <div class="col-4">
+            <h4 style="margin-top: 80px;">{{this.User.firstName}} {{this.User.middleName}} {{this.User.lastName}}</h4>
+            <h6>{{this.UserEmp.groupName}}</h6>
+            <h6><i class="fad fa-map-marker-alt"></i> {{this.User.city}}</h6>
+        </div>
+        <div class="col-4">
+           <button class="btn btn-secondary mt-5 mr-2" (click)="onDeactivate()">{{this.UserEmp.employeeStatus==='Active'?'DeActivate':'Activate'}}</button>
+           <button class="btn btn-secondary mt-5 mr-2" (click)="onLock()">{{this.UserEmp.employeeStatus==='Lock'?'UnLock Account':'Lock Account'}}</button>
+        </div>
+    </div>
+    <div>
+    <div class="pt-3 pl-5" >
+        <h5>Personal Details</h5>
+    </div>
+    
+    <div class="d-flex pt-4 pl-5" >
+        <div class="col-2" >
+            <p><strong>Name:</strong></p> 
+            
+          </div>
+          <div class="col-5">
+            <p>{{this.User.firstName}} {{this.User.middleName}} {{this.User.lastName}}</p>
+          </div>
+
+    </div>
+    <div class="d-flex pl-5">
+        <div class="col-2">
+            <p><strong>Email:</strong></p>
+        </div>
+        <div class="col-4">
+            <p>{{this.User.email}}</p>
+        </div>
+    </div>
+    <div class="d-flex pl-5">
+        <div class="col-2">
+            <p><strong>Phone:</strong></p>
+        </div>
+        <div class="col-4">
+            <p> {{this.User.phone}}</p>
+        </div>
+    </div>
+    <div class="d-flex pl-5">
+        <div class="col-2">
+            <p><strong>DOB:</strong></p>
+        </div>
+        <div class="col-4">
+            <p>{{this.User.dob| date}}</p>
+        </div>
+    </div>
+    <div class="d-flex pl-5">
+        <div class="col-2">
+            <p><strong>Gender:</strong> </p>
+        </div>
+        <div class="col-4">
+            <p>{{this.User.gender}}</p>
+        </div>
+    </div>
+    <div class="d-flex pl-5">
+        <div class="col-2">
+            <p><strong>Residential Address:</strong></p>
+        </div>
+        <div class="col-4">
+            <p>{{this.User.address1}} {{this.User.address2}} {{this.User.state}} {{this.User.city}}  {{this.User.pinCode}}</p>
+        </div>
+    </div>
+    <div class="pt-3 pl-5" style="border-top: 1px solid rgb(204, 203, 203);">
+        <h5>Employee Details</h5>
+    </div>
+    <div class="d-flex pl-5 pt-4">
+        <div class="col-2">
+            <p><strong>Designation:</strong></p>
+        </div>
+        <div class="col-4">
+            <p>{{this.UserEmp.groupName}}</p>
+        </div>
+    </div>
+    <div class="d-flex pl-5">
+        <div class="col-2">
+            <p><strong>Experience: </strong></p>
+        </div>
+        <div class="col-4">
+            <p>{{this.UserEmp.experience}}</p>
+        </div>
+    </div>
+    <div class="d-flex pl-5">
+        <div class="col-2">
+            <p><strong>Location: </strong></p>
+        </div>
+        <div class="col-4">
+            <p>{{this.UserEmp.baseLocation}}</p>
+        </div>
+    </div>
+    <div class="d-flex pl-5 pb-5">
+        <div class="col-2">
+            <p><strong>Bussiness Unit: </strong></p>
+        </div>
+        <div class="col-4">
+            <p>{{this.UserEmp.domainName}}</p>
+        </div>
+    </div>
+    
+</div>

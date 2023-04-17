@@ -1,0 +1,82 @@
+<div class="pl-4 pt-2">
+    <a id="edit" style="border:none;" [routerLink]="['..']"><i class="fas fa-arrow-circle-left "> back</i></a>
+</div>
+<div class="shadow mb-4  pt-5" style="margin:0 5% 0 5%; border-radius:10px; background-color:#e3edfa">
+    <div class="d-flex pb-2 pl-3">
+        <div class="col-5">
+            <h3 style="color: rgb(6, 93, 180);">{{this.Domain.name}}</h3> <span style="color:grey;" >{{this.Domain.createDate | date}}</span>
+            <div class="newlink">
+              <a class=""><i class="fal fa-plus" (click)="addEmp()"> Add</i></a>
+            </div>
+        </div>
+    </div>
+  <div>
+  
+    <div class="user-dashboard-info-box table-responsive bg-white p-2 shadow-sm">
+        <div class="d-flex pt-3 pl-4" >
+            <h5>Employees</h5>
+            <div class="col-4 mr-5">
+              <input style="height:27px" type="text" class="form-control bg-light border mx-4" placeholder="Search By Name" [(ngModel)]="SearchWord" >
+            </div>
+        </div>  
+        <div class="table-responsive py-2 px-5">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Employee Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Experience</th>
+                <th scope="col">Location</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let employee of this.Domain.employeeDetails| searchFilter:SearchWord">
+                <td>{{employee.email.firstName}} {{employee.email.middleName}} {{employee.email.lastName}}</td>
+                <td>{{employee.emailId}}</td>
+                <td>{{employee.experience}}</td>
+                <td>{{employee.baseLocation}}</td>
+                <td><a class="px-3" style="cursor:pointer;" class="text-danger" (click)="deleteUser(employee.emailId)"><i class="far fa-trash-alt"></i> Remove</a></td>
+              </tr>
+            
+            </tbody>
+          </table>
+          
+        </div> 
+    </div>
+</div>
+<div class="modal" [style.display]="showEmp">
+  <div class="modalbody">
+    <span class="close" (click)="close()">&times;</span>
+      <div class="content">
+        <label class="pt-2">Add users</label>
+        <div class=" pb-4" style="display: flex;">
+          <input class="form-control" type="email"  placeholder="Enter email" placeholder="Pick one" [formControl]="userAddInput" matInput [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of this.Options" [value]="option.email">
+              {{option.firstName}}
+            </mat-option>
+          </mat-autocomplete>    
+        </div>
+        <div style="align-items:center;">
+          <button class="btn btn-success" (click)="addUser()">Save</button>
+          <button class="btn btn-danger" (click)="close()">cancel</button>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal" [style.display]="showdelete">
+  <div class="modalbody">
+      <span class="close" (click)="closeDelete()">&times;</span>
+      <div class="content">
+        <div class="py-2">
+          Are You sure, you want to delete?
+        </div>            
+        <div style="align-items:center;">
+          <button class="btn btn-success" (click)="confirmDelete()">Yes</button>&nbsp;&nbsp;
+          <button class="btn btn-danger" (click)="closeDelete()">No</button>
+        </div>
+      </div>
+  </div>
+</div>

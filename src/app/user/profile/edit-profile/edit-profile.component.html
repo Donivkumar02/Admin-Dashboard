@@ -1,0 +1,74 @@
+<div class="row mx-2 mb-2 shadow profile" style="background-color: rgb(239, 244, 247);border:solid 0.5px;border-color:rgb(194, 231, 243);min-height:516px">
+    <div class="col-3 shadow" >
+        <div class="mt-4" style="margin-left:40px">
+            <div class="profile-pic-div" >
+                <img [src]="imageUrl" id="photo">
+                <input #file type="file" id="file" (change)="showImage(file.files)">
+                <label  for="file" id="uploadBtn"><i class="fad fa-camera fa-2x"></i></label>                                  
+            </div>
+            
+        </div>
+        <div style="margin-top: 300px;text-align:center">
+            <p  class="pl-4" style="font-size: 35px;">Natalia Portmen</p>   
+            <p style="text-align:center">Actress</p>
+        </div>
+    </div>
+    <div  class="col-9  my-2">
+        <h4 class="px-3" style="color: rgb(96, 84, 146);display:inline;">Edit Profile</h4><a id="edit" style="border:none;" [routerLink]="['/user/profile']"><i class="fas fa-arrow-circle-left fa-1x">back</i></a>
+        <hr>
+         <div class="d-flex  pb-4">
+             <div class="col-4">
+              <label>Email</label>
+              <input class="form-control" type="text" name="email" placeholder="Enter email address">
+             </div>
+             <div class="col-4">
+              <label>Phone</label>
+              <input class="form-control" type="text" name="phone" placeholder="phone number">
+             </div>
+         </div>
+         <div class="d-flex  pb-4">
+          <div class="col-4">
+              <label>Nationality</label>
+              <input class="form-control" type="text" name="Nationality" >
+          </div>
+          <div class="col-3">
+           <label>DOB</label>
+           <input class="form-control" type="date" name="DOB" >
+          </div>
+      </div>
+      <div class="d-flex pl-3">
+          <h6>Residential Address</h6>
+      </div>
+      <div class="d-flex pb-2">
+          <div class="col-4">
+              <label>State:</label><br>
+              <select class="form-control" (change)="selectstate($event.target.value)" >
+                  <option value="" disabled selected>Select state</option>
+                  <option *ngFor ="let state of stateList">{{state.name}} </option>
+              </select>
+          </div>
+          <div class="col-3">
+              <label>City:</label><br>
+              <select class="form-control" style="min-width: 100%;">
+                  <option *ngFor ="let city of cityList">{{city}} </option>
+              </select>
+          </div>
+      </div>
+      <div class="d-flex pb-2">
+          <div class="col-7">
+              <label for="line1">Door no/flat no</label>&nbsp;
+              <input  class="form-control" id="line1" name="line1" type="text">
+          </div>
+          
+      </div>
+      <div class="d-flex">
+          <div class="col-7">
+              <label for="line2">Area/locality</label>&nbsp;
+              <input  class="form-control" id="line2" name="line2" type="text">
+          </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-primary" (click)="saveProfile()">Save Changes</button>
+    </div>
+    </div>
+</div>

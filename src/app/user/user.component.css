@@ -1,0 +1,40 @@
+.user-menu{
+    color: darkgrey;
+    font-weight: bold;
+    background-color: lightgray;
+   
+}
+
+.user-home{
+    color: rgb(53, 52, 52);
+    font-weight: bold;
+    background-color: darkgray;
+    
+}
+
+
+.user-menu:hover{
+    color:rgb(53, 52, 52)!important;
+    background-color: darkgray!important;
+}
+
+/* .user-menu:visited{
+    color: black;
+    background-color: darkgray;
+} */
+
+
+
+@media (min-width:246px)and (max-width: 408px)
+{
+    .user-div{
+        font-size: 12px;
+    }
+}
+
+.user-home:focus{
+    outline: none;
+}
+.user-menu:focus{
+    outline: none;
+}

@@ -1,0 +1,41 @@
+
+.profile-pic-div{
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+   
+    border: 1px solid grey;
+    position: absolute;
+}
+
+.profile-pic-div:hover + .uploadBtn {
+    display:initial;
+    
+  }
+
+#photo{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+
+#file{
+    display: none;
+}
+
+#uploadBtn{
+    width:45px;
+    height: 40px;
+    text-align: center;
+    position: absolute;
+    transform: translateX(-200%);
+    top: 170px;
+    background-color: #d1d1d1;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#uploadBtn:hover{
+background-color: rgb(180, 180, 182);
+}
